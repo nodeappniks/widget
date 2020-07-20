@@ -1,8 +1,22 @@
 import React from 'react';
 const useNameFormState = () => {
+    let name = localStorage.getItem("name");
+    let surname = localStorage.getItem("surname");
+    if(name == null){
+        name = ""
+    }else{
+        name = JSON.parse(name)
+    }
+
+    if(surname == null){
+        surname = ""
+    }else{
+        surname = JSON.parse(surname)
+    }
+
     const init = {
-      name: '',
-      surname: ''
+      name: name,
+      surname: surname
     }
     const [values, setValues] = React.useState(init)
     // ... you can subscribe here
@@ -40,7 +54,8 @@ const useNameFormState = () => {
       setShowInfo({...showInfo,showInfo: true});
       console.log(showInfo);
       
-      
+      localStorage.setItem("name", JSON.stringify(values.name));
+      localStorage.setItem("surname", JSON.stringify(values.surname));
       event.preventDefault();
     }
     
